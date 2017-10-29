@@ -128,18 +128,3 @@ object ConcTree {
 }
 
 
-object TestMain {
-
-  import ConcTree._
-
-  def main(args: Array[String]): Unit = {
-    val t1 = appendLeaf(Empty, new Single[Int](1))
-    val t2 = appendLeaf(t1, new Single[Int](2))
-    val t3 = appendLeaf(t2, new Single[Int](3))
-    val t4 = appendLeaf(t3, new Single[Int](4))
-    val t5 = appendLeaf(t4, new Single[Int](5))
-    val t6 = appendLeaf(t5, new Single[Int](6))
-
-    println(" stop ")
-  }
-}
