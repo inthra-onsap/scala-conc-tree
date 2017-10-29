@@ -111,8 +111,8 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
                                                                                  
                                                                                  
     Step 5) Add leaf (50). The binary representation is "101" for 5 leafs. 
-            The previous binary bit representation which is "100" is enough for keeping 5 leafs just append (50) without carrying to left most bit. 
-            So we will concatenate it by Append node. 
+            The previous binary bit representation which is "100" is enough for keeping 5 leafs just append (50) 
+            without carrying to left most bit. So we will concatenate it by Append node. 
                     
         Scala View: val t4 = appendLeaf(t3, new Single[Int](50))
                  

@@ -126,3 +126,4 @@ object ConcTree {
     case t: Append[T] => append(t, t2)
   }
 }
+
