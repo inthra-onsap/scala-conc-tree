@@ -46,7 +46,9 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
 
 
 
-    Step 1) Add leaf (10). The binary representation is "1" for 1 leaf. It means the current binary bit representation is big enough to keep one single leaf. Don't need to re-balance. 
+    Step 1) Add leaf (10). The binary representation is "1" for 1 leaf. 
+            It means the current binary bit representation is big enough to keep one single leaf. 
+            Don't need to re-balance. 
         
         Scala View: val t1 = ConcTree.appendLeaf(Empty, new Single[Int](10))   
                      
@@ -54,8 +56,10 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
         Tree View:              (10)
            
            
-    Step 2) Add leaf (20). The binary representation is "10" for 2 leafs. The previous binary bit representation which is "01" is not enough for keeping 2 leafs. 
-            So we will concatenate (10) and (20) leafs together by <A>(internal) node and leave the right-most bit as 0 number of leaf.
+    Step 2) Add leaf (20). The binary representation is "10" for 2 leafs. 
+            The previous binary bit representation which is "01" is not enough for keeping 2 leafs. 
+            So we will concatenate (10) and (20) leafs together by <A>(internal) node 
+            and leave the right-most bit as 0 number of leaf.
             
         Scala View: val t2 = ConcTree.appendLeaf(t1, new Single[Int](20))
           
@@ -66,7 +70,8 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
                                                                            (10)   (20)   empty
     
     
-    Step 3) Add leaf (30). The binary representation is "11" for 3 leafs. The previous binary bit representation which is "10" is enough for keeping 3 leafs just append (30) without carrying to left most bit.
+    Step 3) Add leaf (30). The binary representation is "11" for 3 leafs. The previous binary bit representation 
+            which is "10" is enough for keeping 3 leafs just append (30) without carrying to left most bit.
             So we will concatenate it by Append node. 
         
         Scala View: val t3 = appendLeaf(t2, new Single[Int](30))
@@ -82,45 +87,50 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
                                                                             (10)   (20)
                             
       
-    Step 4) Add leaf (40). The binary representation is "100" for 4 leafs. The previous binary bit representation which is "11" is not enough for keeping 4 leafs. 
-            We need to re-balance the existing tree to conform the property rules above by deleting the Append node and replace by <>(internal) node. 
-            We will add (40) from right-most bit. That caused the (30) to concatenate with (40) by <B>(internal) node. Move the <B> to to second left-most bit as it has 2 leafs but there also exists 2 leafs tree on the second bit.
+    Step 4) Add leaf (40). The binary representation is "100" for 4 leafs. 
+            The previous binary bit representation which is "11" is not enough for keeping 4 leafs. 
+            We need to re-balance the existing tree to conform the property rules above 
+            by deleting the Append node and replace by <>(internal) node. 
+            We will add (40) from right-most bit. That caused the (30) to concatenate with (40) by <B>(internal) node. 
+            Move the <B> to to second left-most bit as it has 2 leafs but there also exists 2 leafs tree on the second bit.
             We need to concate <A> and <B> by <C> node and keep the binary representation as "100".
-            After rebalanced the tree, the right-most 2 bits are 0s which means we can add 3 more leafs before we will need to to re-balance the tree again.
+            After rebalanced the tree, the right-most 2 bits are 0s which means we can add 3 more leafs 
+            before we will need to to re-balance the tree again.
              
         Scala View: val t4 = appendLeaf(t3, new Single[Int](40))
              
-        Binary View:             1        1                                                  1          0         0
-        Tree View:                 Append[T]                                                <C>
-                                   /    \                                                  /   \       empty     empty
-                                  /      \                                               /       \
-                                <A>     (30) append (40)      transform to             /          \
-                               /   \                                                 <A>          <B>
-                              /     \                                               /   \        /   \
-                            (10)   (20)                                            /     \      /     \
-                                                                                 (10)   (20)  (30)   (40) 
+        Binary View:           1        1                                                  1          0         0
+        Tree View:               Append[T]                                                <C>
+                                 /    \                                                  /   \       empty     empty
+                                /      \                                               /       \
+                              <A>     (30) append (40)      transform to             /          \
+                             /   \                                                 <A>          <B>
+                            /     \                                               /   \        /   \
+                          (10)   (20)                                            /     \      /     \
+                                                                               (10)   (20)  (30)   (40) 
                                                                                  
                                                                                  
-    Step 5) Add leaf (50). The binary representation is "101" for 5 leafs. The previous binary bit representation which is "100" is enough for keeping 5 leafs just append (50) without carrying to left most bit. 
+    Step 5) Add leaf (50). The binary representation is "101" for 5 leafs. 
+            The previous binary bit representation which is "100" is enough for keeping 5 leafs just append (50) without carrying to left most bit. 
             So we will concatenate it by Append node. 
                     
         Scala View: val t4 = appendLeaf(t3, new Single[Int](50))
                  
-        Binary View:             1          0         0                                                   1   0        1
-        Tree View:              <C>
-                               /   \      empty      empty append (50)                                       empty
-                             /       \
-                           /          \                                        transform to                  Append[T] 
-                         <A>          <B>                                                                   /         \
-                        /   \        /   \                                                                 /           \
-                       /     \      /     \                                                              <C>          (50)
-                     (10)   (20)  (30)   (40)                                                           /   \
-                                                                                                      /       \
-                                                                                                    /          \  
-                                                                                                  <A>          <B>
-                                                                                                 /   \        /   \ 
-                                                                                                /     \      /     \  
-                                                                                              (10)   (20)  (30)   (40)   
+        Binary View:           1          0         0                                             1   0        1
+        Tree View:            <C>
+                             /   \      empty      empty append (50)                                 empty
+                           /       \
+                         /          \                                      transform to              Append[T] 
+                       <A>          <B>                                                             /         \
+                      /   \        /   \                                                           /           \
+                     /     \      /     \                                                        <C>          (50)
+                   (10)   (20)  (30)   (40)                                                     /   \
+                                                                                              /       \
+                                                                                            /          \  
+                                                                                          <A>          <B>
+                                                                                         /   \        /   \ 
+                                                                                        /     \      /     \  
+                                                                                      (10)   (20)  (30)   (40)   
                      
                      
                      
