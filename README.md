@@ -1,6 +1,6 @@
 # Conc-Tree
 
-Intermediate balanced tree data structure in Scala.
+Intermediate balanced tree data structure for parallel processing in Scala.
 
 #### Properties
 (<> means internal node)
@@ -82,8 +82,8 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
                                 /     \                                            /    \
                               (10)   (20) append (30)      transform to           /      \
                                                                                 <A>     (30)
-                                                                                /   \
-                                                                               /     \
+                                                                               /   \
+                                                                              /     \
                                                                             (10)   (20)
                             
       
