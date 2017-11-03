@@ -5,7 +5,7 @@ import scala.annotation._
 
 object ConcTree {
 
-  sealed trait Conc[+T] {
+  trait Conc[+T] {
     def level: Int
 
     def size: Int
@@ -107,7 +107,7 @@ object ConcTree {
   }
 
   @tailrec
-  private def append[T](t1: Append[T], t2: Conc[T]): Conc[T] = {
+  def append[T](t1: Append[T], t2: Conc[T]): Conc[T] = {
     if (t1.right.level > t2.level) new Append(t1, t2)
     else {
       val t3 = new <>(t1.right, t2)

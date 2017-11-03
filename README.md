@@ -132,6 +132,21 @@ Whenever you want to use the Conc-Tree. Don't forget to re-balance the tree to g
                                                                                         /     \      /     \  
                                                                                       (10)   (20)  (30)   (40)   
                      
-                     
-                     
-                                     
+
+
+#### ConcBuffers
+From the data structure above, Now we can express it more efficient and easy to use by ConcBuffers.
+
+```scala
+object ExampleMain {
+
+  import ConcBuffer._
+
+  def main(args: Array[String]): Unit = {
+    val xs = for (i <- 1 to 10000000) yield i
+
+    xs.par.aggregate(new ConcBuffer[Int](100, ConcTree.Empty))(_ += _, _ combine _)
+  }
+
+}
+```
